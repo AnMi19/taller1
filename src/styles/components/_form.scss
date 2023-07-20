@@ -1,7 +1,8 @@
 @use "./label" as l;
-@use "./button" as b;
+@use "./buttons" as b;
 @use "./inputs" as i;
 @use "./error" as e;
+@use "./directions" as d;
 form{
     fieldset{
         border: none;
@@ -11,7 +12,8 @@ form{
             @include l.label();
             @include i.inputs();
             @include e.error();
-    }
-    @include b.button();
+        }
+        @include b.button(); 
+    
 
 }

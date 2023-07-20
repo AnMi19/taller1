@@ -1,4 +1,5 @@
 @use "./variables" as v;
+@use "./components/buttons" as b;
 @use "./components/directions" as d;
 
 
@@ -6,14 +7,29 @@
   font-family: v.$font-family;
   display: flex;
   flex-direction: column;
-  align-items:center;
   justify-content: center;
-  letter-spacing: 0.5rem;
+  align-items: center;
+  letter-spacing: 0.05rem;
   width: 100vw; 
   height: 100vh;
-  padding: 20px;
   background-image: v.$container-bg-color;
-  @include d.directions();
-  
+  main{
+      h1{
+          color: v.$main-text;
+          font-weight: normal;
+          letter-spacing: 0.5rem;
+          padding: 0.5rem;
+          text-align: center;
+        }
+        h3{
+            text-align: center;
+            color: v.$main-text;
+            padding: 5px;
+            font-size: 20px;
+            font-weight: 300;
+        }
+        @include d.directions();
+        @include b.button();
+    }
 
 }

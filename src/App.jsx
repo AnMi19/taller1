@@ -15,7 +15,7 @@ function App() {
         {step === "inicio" && <Inicio />}
         {step === "primerpaso" && <PrimerPaso />}
         {step === "segundopaso" && <SegundoPaso />}
-        {step === "terceropaso" && <TercerPaso />}
+        {step === "tercerpaso" && <TercerPaso />}
         {step === "cuartopaso" && <CuartoPaso />}
         {step === "quintopaso" && <QuintoPaso />}
         {step === "resultado" && <Resultado />}
