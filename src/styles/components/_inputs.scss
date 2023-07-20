@@ -1,0 +1,12 @@
+@use "../variables" as v;
+@mixin inputs(){
+        input{
+            font-family: v.$font-family;
+            font-size: 1.2rem;
+            border: 0;
+            border-bottom: 1px solid v.$gray;
+            outline:none;
+            background-color: v.$bg-color1;
+        }
+    
+    }

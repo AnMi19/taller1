@@ -1,0 +1,17 @@
+@use "./label" as l;
+@use "./button" as b;
+@use "./inputs" as i;
+@use "./error" as e;
+form{
+    fieldset{
+        border: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0.1rem 0;
+            @include l.label();
+            @include i.inputs();
+            @include e.error();
+    }
+    @include b.button();
+
+}

@@ -1,0 +1,19 @@
+@use "./variables" as v;
+@use "./components/directions" as d;
+
+
+.App{
+  font-family: v.$font-family;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  letter-spacing: 0.5rem;
+  width: 100vw; 
+  height: 100vh;
+  padding: 20px;
+  background-image: v.$container-bg-color;
+  @include d.directions();
+  
+
+}
