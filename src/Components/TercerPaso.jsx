@@ -1,38 +1,35 @@
 import { useContext } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import AppContext from "../context/AppContext";
-
+import { tercerSchema } from "../schemas/tercerSchema";
 const TercerPaso = () => {
-  const { setStep } = useContext(AppContext);
-  const initialValues = {
-    text: "",
+  const { setStep, dataT, setDataT } = useContext(AppContext);
+  let initialValues = dataT;
+  const onSubmit = (fields) => {
+    setDataT(fields);
+    setStep("cuartopaso");
   };
   return (
     <main>
       <h1>Te gustaria una visitá a tu casa ?</h1>
       <div className="card">
-        <Formik initialValues={initialValues}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={tercerSchema}
+        >
           <Form autoComplete="off">
             <fieldset>
-              <label htmlFor="texto">Direccion</label>
-              <Field type="text" id="text" autoFocus />
-              <p className="error">Campo Requerido</p>
+              <label htmlFor="cnumber">Ingresa tu celular</label>
+              <Field type="text" id="cnumber" name="cnumber" autoFocus />
+              <ErrorMessage className="error" component="p" name="cnumber" />
             </fieldset>
             <fieldset>
-              <label htmlFor="texto">Ciudad</label>
-              <Field type="text" id="text" />
-              <p className="error">Campo requerido</p>
+              <label htmlFor="city">Ciudad</label>
+              <Field type="text" id="city" name="city" />
+              <ErrorMessage className="error" component="p" name="city" />
             </fieldset>
-            <fieldset>
-              <label htmlFor="texto">Hora de visita</label>
-              <Field type="time" id="time" />
-              <p className="error">Campo requerido</p>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="texto"></label>
-              <Field type="select" id="select" />
-              <p className="error">Campo requerido</p>
-            </fieldset>
+
             <div className="buttons">
               <button
                 className="lbutton"
@@ -42,12 +39,7 @@ const TercerPaso = () => {
               >
                 Anterior
               </button>
-              <button
-                className="rbutton"
-                onClick={() => {
-                  setStep("cuartopaso");
-                }}
-              >
+              <button type="submit" className="rbutton">
                 Siguiente
               </button>
             </div>

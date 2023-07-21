@@ -1,38 +1,42 @@
-import { useState, useContext } from "react";
-import { Form, Field, Formik } from "formik";
+import { useContext } from "react";
+import { Form, Field, Formik, ErrorMessage } from "formik";
 import AppContext from "../context/AppContext";
+import { primerSchema } from "../schemas/primerSchema";
 
 const PrimerPaso = () => {
-  const { setStep } = useContext(AppContext);
-  const initialValues = {
-    nombres: "",
-    apellidos: "",
-    edad: "",
-    sexo: "",
+  const { setStep, dataP, setDataP } = useContext(AppContext);
+  let initialValues = dataP;
+  const onSubmit = (fields) => {
+    setDataP(fields);
+    setStep("segundopaso");
   };
 
   return (
     <main>
       <h3>Ingresa tus datos para contactarte!</h3>
       <div className="card">
-        <Formik initialValues={initialValues}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={primerSchema}
+        >
           <Form autoFocus autoComplete="off">
             <fieldset>
               <label htmlFor="nombres">Nombres</label>
               <Field id="nombres" name="nombres" type="text" autoFocus />
-              <p className="error">Campo Requerido</p>
+              <ErrorMessage name="nombres" className="error" component="p" />
             </fieldset>
             <fieldset>
               <label htmlFor="apellidos">Apellidos</label>
               <Field id="apellidos" name="apellidos" type="text" autoFocus />
 
-              <p className="error">Campo Requerido</p>
+              <ErrorMessage name="apellidos" className="error" component="p" />
             </fieldset>
             <fieldset>
               <label htmlFor="edad">Edad</label>
               <Field id="edad" name="edad" type="number" autoFocus />
 
-              <p className="error">Campo Requerido</p>
+              <ErrorMessage name="edad" className="error" component="p" />
             </fieldset>
             <fieldset>
               <label htmlFor="sexo">Sexo</label>
@@ -41,8 +45,7 @@ const PrimerPaso = () => {
                 <option value="hombre">Hombre</option>
                 <option value="mujer">Mujer</option>
               </Field>
-
-              <p className="error">Campo Requerido</p>
+              <ErrorMessage name="sexo" className="error" component="p" />
             </fieldset>
             <div className="buttons">
               <button
@@ -53,12 +56,7 @@ const PrimerPaso = () => {
               >
                 Anterior
               </button>
-              <button
-                className="rbutton"
-                onClick={() => {
-                  setStep("segundopaso");
-                }}
-              >
+              <button type="submit" className="rbutton">
                 Siguiente
               </button>
             </div>

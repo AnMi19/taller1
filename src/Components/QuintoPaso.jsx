@@ -1,39 +1,51 @@
 import { useContext } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import AppContext from "../context/AppContext";
+import { quintoSchema } from "../schemas/quintoSchema";
+
 const QuintoPaso = () => {
-  const { setStep } = useContext(AppContext);
-  const initialValues = {
-    text: "",
+  const { setStep, dataQ, setDataQ } = useContext(AppContext);
+  let initialValues = dataQ;
+  const onSubmit = (fields) => {
+    setDataQ(fields);
+    setStep("resultado");
   };
   return (
     <main>
-      <h1>Cursos de la Biblia gratis</h1>
-      <h3>Bienvenido!</h3>
+      <h1>Estudia con los testigos de Jehová</h1>
       <div className="card">
-        <Formik initialValues={initialValues}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={quintoSchema}
+        >
           <Form autoComplete="off">
             <fieldset>
-              <label htmlFor="texto">Que sabe usted de la biblia?</label>
-              <Field type="text" id="text" autoFocus />
-              <p className="error">Este campo es necesario</p>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="texto">Que opina de la biblia?</label>
-              <Field type="text" id="text" />
-              <p className="error">Este campo es necesario</p>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="texto">Es la biblia un libro confiable?</label>
-              <Field type="text" id="text" />
-              <p className="error">Este campo es necesario</p>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="texto">
-                Tenemos razones para creer lo que dice la biblia?
+              <label htmlFor="meet">
+                ¿Le gustaria asistir a nuestras reuniones?
               </label>
-              <Field type="select" id="select" />
-              <p className="error">Este campo es necesario</p>
+              <Field type="text" id="meet" name="meet" autoFocus />
+              <ErrorMessage className="error" component="p" name="meet" />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="more">Quiere saber mas?</label>
+              <Field as="select" id="select" name="more">
+                <option value="">selecione una opcion</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+              </Field>
+              <ErrorMessage className="error" component="p" name="more" />
+            </fieldset>
+
+            <fieldset>
+              <label htmlFor="terms">
+                <Field type="checkbox" id="terms" name="terms" />
+                Accept terms
+              </label>
+              <ErrorMessage className="error" component="p" name="terms" />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="mas">Para mas informacion entre a JW.ORG</label>
             </fieldset>
             <div className="buttons">
               <button
@@ -44,12 +56,7 @@ const QuintoPaso = () => {
               >
                 Anterior
               </button>
-              <button
-                className="rbutton"
-                onClick={() => {
-                  setStep("resultado");
-                }}
-              >
+              <button type="submit" className="rbutton">
                 Siguiente
               </button>
             </div>
